@@ -52,7 +52,7 @@ print("请输入：剪刀（0）、石头（1）、布（2）")
 str = input("您出：")
 if str.isnumeric():
     a = int(str)
-    if a in range(0, 2):
+    if a in range(0, 3):
         system = random.randint(0, 2)
         if a == 0:
             you = "剪刀（0）"
