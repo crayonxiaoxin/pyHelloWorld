@@ -4,6 +4,8 @@
 # @File: demo2.py
 # @Software: PyCharm
 
+# 列表    （List，类似数组）
+
 # namelist = []   # 空列表
 
 """
