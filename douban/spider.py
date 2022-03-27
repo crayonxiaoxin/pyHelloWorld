@@ -14,6 +14,7 @@ import urllib.request, urllib.error
 # excel 操作
 import xlwt
 import time
+import sqlite3
 
 
 def main():
@@ -22,8 +23,13 @@ def main():
     datalist = getData(baseurl)
 
     # 3. 保存数据
-    savepath = "./豆瓣电影Top250.xls"
-    saveData(datalist, savepath)
+    # 保存到 Excel
+    # savepath = "./豆瓣电影Top250.xls"
+    # saveData(datalist, savepath)
+
+    # 保存到 sqlite
+    dbpath = 'movie.db'
+    saveData2DB(datalist, dbpath)
 
 
 # 影片链接的规则
@@ -129,10 +135,53 @@ def saveData(datalist, savepath):
         for j in range(0, len(data)):
             sheet.write(i + 1, j, data[j])
     book.save(savepath)
-
     pass
+
+
+def saveData2DB(datalist, dbpath):
+    init_db(dbpath)
+    conn = sqlite3.connect(dbpath)
+    cursor = conn.cursor()
+    for data in datalist:
+        for index in range(len(data)):
+            if index == 4 or index == 5:
+                continue
+            data[index] = '"' + data[index] + '"'
+        sql = '''
+            insert into movie250(info_link,pic_link,cname,ename,score,rated,introduction,info)
+            values(%s)
+            ''' % ",".join(data)
+        cursor.execute(sql)
+        conn.commit()
+
+    cursor.close()
+    conn.close()
+    pass
+
+
+def init_db(dbpath):
+    sql = '''
+        create table if not exists movie250(
+            id integer primary key autoincrement,
+            info_link text,
+            pic_link text,
+            cname varchar,
+            ename varchar,
+            score numeric,
+            rated numeric,
+            introduction text,
+            info text
+        )
+    '''
+    conn = sqlite3.connect(dbpath)
+    cursor = conn.cursor()
+    cursor.execute(sql)
+    conn.commit()
+    cursor.close()
+    conn.close()
 
 
 if __name__ == '__main__':  # 当程序执行时
     main()
+    # init_db("movietest.db")
     print("爬取完毕")
