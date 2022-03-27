@@ -51,8 +51,8 @@ findBd = re.compile(r'<p class="">(.*?)</p>', re.S)
 # 爬取网页
 def getData(baseurl):
     datalist = []
-    # for i in range(0, 10):
-    for i in range(0, 1):
+    # for i in range(0, 1):
+    for i in range(0, 10):
         url = baseurl + str(i * 25)
         html = askUrl(url)
         # 2. 解析数据
