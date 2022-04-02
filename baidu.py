@@ -6,6 +6,8 @@
 import random
 
 import requests
+from baiduspider import BaiduSpider
+from pprint import pprint
 
 user_agent_list = [
     # Opera
@@ -48,8 +50,10 @@ headers = {
 
 
 def main():
-    response = requests.get("https://www.baidu.com/s?wd=%E4%B8%89%E9%83%A8%E9%97%A8%E5%8F%91%E6%96%87%E8%A7%84%E8%8C%83%E7%BD%91%E7%BB%9C%E7%9B%B4%E6%92%AD%E8%90%A5%E5%88%A9%E8%A1%8C%E4%B8%BA&sa=fyb_news&rsv_dl=fyb_news>", headers=headers)
-    print(response.text)
+    # response = requests.get("https://www.baidu.com/s?wd=%E4%B8%89%E9%83%A8%E9%97%A8%E5%8F%91%E6%96%87%E8%A7%84%E8%8C%83%E7%BD%91%E7%BB%9C%E7%9B%B4%E6%92%AD%E8%90%A5%E5%88%A9%E8%A1%8C%E4%B8%BA&sa=fyb_news&rsv_dl=fyb_news>", headers=headers)
+    # print(response.text)
+    spider = BaiduSpider()
+    pprint(spider.search_web(query="Python").plain)
 
 
 if __name__ == "__main__":
