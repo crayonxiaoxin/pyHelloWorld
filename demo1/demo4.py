@@ -86,7 +86,7 @@ while i < 10:
 # 九九乘法表
 i = 1
 n = 9
-while i <= 9:
+while i <= n:
     for x in range(1, i + 1):
         print("%d * %d = %d" % (i, x, i * x), end="\t")
     print("")
